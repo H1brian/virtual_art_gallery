@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 // const width = window.innerWidth, height = window.innerHeight;
 
@@ -33,6 +35,7 @@ import * as THREE from 'three';
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
+const loader = new THREE.TextureLoader(); // create image loader
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
@@ -51,13 +54,13 @@ renderer.setClearColor(0xfffff, 1);  // Background color
 document.body.appendChild(renderer.domElement); // add renderer to HTML
 
 // Lights
-let ambientLight = new THREE.AmbientLight(0x101010, 1);  // color, intensity
+const ambientLight = new THREE.AmbientLight(0x101010, 1);  // color, intensity
 ambientLight.position.x = camera.position.x; // Light follows camera
 ambientLight.position.y = camera.position.y; // Light follows camera
 scene.add(ambientLight);
 
 // Directional Light
-let sunLight = new THREE.DirectionalLight(0xddddd, 1); // color intensity
+const sunLight = new THREE.DirectionalLight(0xddddd, 1); // color intensity
 sunLight.position.y = 15;
 scene.add(sunLight);
 
@@ -71,27 +74,98 @@ scene.add(cube);
 // Event listener when user presee the keys
 document.addEventListener('keydown', onkeyDown, false);
 
+// Texture of the floor
+// let floorTexture = new THREE.ImageUtils.loadTexture('img/floor.jpg') // for new version of threejs
+const floorTexture = loader.load('img/floor.jpg');
+
+// Create the floor plane
+const planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object // Alternative PlaneBufferGeometry
+const planeMaterial =  new THREE.MeshBasicMaterial({
+	map: floorTexture,
+	side: THREE.DoubleSide,
+});
+const floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
+floorPlane.rotation.x = Math.PI /2  // rotate 90 degree
+floorPlane.position.y = -Math.PI  // move the plane below
+
+scene.add(floorPlane);
+
+// Create the walls group
+const wallGroup = new THREE.Group();
+scene.add(wallGroup);
+// Create the texture of the wall
+const wallTexture = loader.load('./img/wall.jpg');
+
+// Front wall
+const frontWall = new THREE.Mesh(
+	new THREE.BoxGeometry(50, 20, 0.001),
+	new THREE.MeshBasicMaterial({
+		// color: "red",
+		map: wallTexture
+	})
+);
+frontWall.position.z = -20;  // push the frontwall to the rear position
+// wallGroup.add(frontWall);  // add walls to the wallGroup
+
+// Left wall
+const leftWall = new THREE.Mesh(
+	new THREE.BoxGeometry(50, 20, 0.001),
+	new THREE.MeshBasicMaterial({map: wallTexture})
+);
+leftWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
+leftWall.position.x = -20;   // move the leftwall to the left
+// wallGroup.add(leftWall);  // add walls to the wallGroup
+
+// Right wall
+const rightWall = new THREE.Mesh(
+	new THREE.BoxGeometry(50, 20, 0.001),
+	new THREE.MeshBasicMaterial({map: wallTexture})
+);
+rightWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
+rightWall.position.x = 20;   // move the leftwall to the left
+
+wallGroup.add(frontWall, leftWall, rightWall);  // add walls to the wallGroup
+
+// Look through each wall and create the bounding box
+// for (let i = 0; i < wallGroup.children.length; i++) {
+// 	wallGroup.children[i].Box3
+// }
+
+// Create the ceiling
+// Create the ceiling texture
+const ceilingTexture = loader.load('img/ceiling.jpg');
+const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the objects
+const ceilingMaterial = new THREE.MeshBasicMaterial({
+	// color: "yellow",
+	map: ceilingTexture,
+	side: THREE.DoubleSide
+});
+
+const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+ceilingPlane.rotation.x = Math.PI / 2;  // rotate the ceiling 90 degree
+ceilingPlane.position.y = 10;
+scene.add(ceilingPlane);
+
 // Function when a key is pressed, execute this function
 function onkeyDown(event) {
 	let keycode = event.which;
 
 	//right arrow key or letter d
 	if (keycode === 39) {
-		camera.translateX(-0.05);
+		camera.translateX(0.05);
 	}
 	// left arrow key or letter a
 	else if (keycode === 37) {
-		camera.translateX(0.05)
+		camera.translateX(-0.05)
 	}
 	// up arrow key or letter w
 	else if (keycode === 38) {
-		camera.translateY(-0.05)
+		camera.translateY(0.05)
 	}
 	// down arrow key or letter s
 	else if (keycode === 40) {
-		camera.translateY(0.05)
+		camera.translateY(-0.05)
 	}
-	
 };
 
 // Animation   request amimation frame
