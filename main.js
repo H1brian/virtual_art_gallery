@@ -73,7 +73,7 @@ scene.add(cube);
 
 // Controls
 // Event listener when user presee the keys
-document.addEventListener('keydown', onkeyDown, false);
+// document.addEventListener('keydown', onkeyDown, false);
 
 // Texture of the floor
 // let floorTexture = new THREE.ImageUtils.loadTexture('img/floor.jpg') // for new version of threejs
@@ -135,10 +135,43 @@ rightWall.position.x = 20;   // move the leftwall to the left
 
 wallGroup.add(frontWall, backWall, leftWall, rightWall);  // add walls to the wallGroup
 
-// Look through each wall and create the bounding box
-// for (let i = 0; i < wallGroup.children.length; i++) {
-// 	wallGroup.children[i].Box3
-// }
+// Loop through each wall and create the bounding box for each wall
+frontWall.geometry.computeBoundingBox();
+const fwallBBox = new THREE.Box3();
+fwallBBox.setFromObject(frontWall);
+
+backWall.geometry.computeBoundingBox();
+const bwallBBox = new THREE.Box3();
+bwallBBox.setFromObject(backWall);
+
+leftWall.geometry.computeBoundingBox();
+const lwallBBox = new THREE.Box3();
+lwallBBox.setFromObject(leftWall);
+
+rightWall.geometry.computeBoundingBox();
+const rwallBBox = new THREE.Box3();
+rwallBBox.setFromObject(rightWall);
+
+
+// Check if the user intersects the wall
+function checkCollision() {
+	const playerBoundingBox = new THREE.Box3(); // Create a bounding box
+	const cameraWorldPositon = new THREE.Vector3(); // Create a vector to hold the camera position
+	camera.getWorldPosition(cameraWorldPositon);  // Get the camera's position and store them it in the vector(camera's position = player's position)
+	playerBoundingBox.setFromCenterAndSize(cameraWorldPositon, new THREE.Vector3(1, 1, 1));/// a method to take the center and size of a box, set the player's bounding box size and center it on the camera's world position
+
+	// loop through each wall
+	if (playerBoundingBox.intersectsBox(fwallBBox) ||
+		playerBoundingBox.intersectsBox(bwallBBox) ||
+		playerBoundingBox.intersectsBox(lwallBBox) ||
+		playerBoundingBox.intersectsBox(rwallBBox)
+	) {
+		return true
+	} else {
+		return false
+	}
+	
+};
 
 // Create the ceiling texture
 const ceilingTexture = textureLoader.load('src/public/img/ceiling.jpg');
@@ -216,30 +249,66 @@ function showMenu(){
 // Press "ESC" to exit and show the menu
 controls.addEventListener('unlock', showMenu);
 
-// Function when a key is pressed, execute this function
-function onkeyDown(event) {
-	let keycode = event.which;
+// Object to hold the key pressed
+const keysPressed = {
+	ArrowUp: false,
+	ArrowDown: false,
+	ArrowLeft: false,
+	ArrowRight: false,
+	w: false,
+	s: false,
+	a: false,
+	d: false
+};
 
+// Event listener for when keys were pressed
+document.addEventListener('keydown', (event) => {  // Keydown is an event that fires when a key is pressed
+	if (event.key in keysPressed) { // Check if the key pressed is in the keysPressed
+		keysPressed[event.key] = true; // if it is, set the value to true
+	}
+}, false
+);
+
+// Event listener for when keys were pressed
+document.addEventListener('keyup', (event) => {  // Keyup is an event that fires when a key is released
+	if (event.key in keysPressed) { // Check if the key released is in the keysPressed
+		keysPressed[event.key] = false; // if it is, set the value to false
+	}
+}, false
+);
+
+// Add the movement to the scene, press the arrow keys or wsad to move
+const clock = new THREE.Clock();  // Create a clock to keep track of the time between frames
+
+function updateMovement(delta) {
+	const moveSpeed = 5 * delta;  // the distance the camera will move per second, to make the movement framerate independent. This means the movement will the same regardless of the framerate
+	const previousPosition = camera.position.clone(); // clone the position before movement
 	//right arrow key or letter d
-	if (keycode === 39 || keycode === 68) {
-		controls.moveRight(0.2);
+	if (keysPressed.ArrowRight || keysPressed.d) {
+		controls.moveRight(moveSpeed);
 	}
 	// left arrow key or letter a
-	else if (keycode === 37 || keycode === 65) {
-		controls.moveRight(-0.2);
+	if (keysPressed.ArrowLeft || keysPressed.a) {
+		controls.moveRight(-moveSpeed);
 	}
 	// up arrow key or letter w
-	else if (keycode === 38 || keycode === 87) {
-		controls.moveForward(0.2);
+	if (keysPressed.ArrowUp || keysPressed.w) {
+		controls.moveForward(moveSpeed);
 	}
 	// down arrow key or letter s
-	else if (keycode === 40 || keycode === 83) {
-		controls.moveForward(-0.2);
+	if (keysPressed.ArrowDown || keysPressed.s) {
+		controls.moveForward(-moveSpeed);
+	}
+	// check the collision
+	if (checkCollision()) {
+		camera.position.copy(previousPosition); // reset the camera position to previouspositon 
 	}
 };
 
 // Animation   request amimation frame
 let render = function() {
+	const delta = clock.getDelta(); // get the time between frames
+	updateMovement(delta); // update the movement with the time between frames
 	cube.rotation.x += 0.01;  // move render move render
 	cube.rotation.y += 0.01;
 
