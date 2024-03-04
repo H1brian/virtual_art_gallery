@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-// import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
 
 import { loadStatueModel } from "./components/statue";
+// import { displayInfo, hideInfo } from './components/paintingInfo';
+import { createWalls } from './components/walls';
+import { createBoundingBox } from './components/boundingboxes';
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -27,6 +28,8 @@ renderer.setClearColor(0xfffff, 1);  // Background color
 document.body.appendChild(renderer.domElement); // add renderer to HTML
 
 loadStatueModel(scene); // Add external statue
+const walls = createWalls(scene, textureLoader);  // Return wallGroup
+const wallBoundingBox = createBoundingBox(walls);
 
 // Lights
 const ambientLight = new THREE.AmbientLight(0x101010, 1);  // color, intensity
@@ -64,69 +67,6 @@ floorPlane.position.y = -Math.PI  // move the plane below
 
 scene.add(floorPlane);
 
-// Create the walls group
-const wallGroup = new THREE.Group();
-scene.add(wallGroup);
-// Create the texture of the wall
-const wallTexture = textureLoader.load('src/public/img/wall.jpg');
-wallTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
-wallTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
-wallTexture.repeat.set(1, 1);  // How many time the texture should be repeated
-
-// Front wall
-const frontWall = new THREE.Mesh(
-	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({
-		// color: "red",
-		map: wallTexture
-	})
-);
-frontWall.position.z = -20;  // push the frontwall to the rear position
-
-// Back wall
-const backWall = new THREE.Mesh(
-	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({
-		// color: "red",
-		map: wallTexture
-	})
-);
-backWall.position.z = 20;  // push the frontwall to the rear position
-
-// Left wall
-const leftWall = new THREE.Mesh(
-	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({map: wallTexture})
-);
-leftWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
-leftWall.position.x = -20;   // move the leftwall to the left
-
-// Right wall
-const rightWall = new THREE.Mesh(
-	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({map: wallTexture})
-);
-rightWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
-rightWall.position.x = 20;   // move the leftwall to the left
-
-wallGroup.add(frontWall, backWall, leftWall, rightWall);  // add walls to the wallGroup
-
-// Loop through each wall and create the bounding box for each wall
-frontWall.geometry.computeBoundingBox();
-const fwallBBox = new THREE.Box3();
-fwallBBox.setFromObject(frontWall);
-
-backWall.geometry.computeBoundingBox();
-const bwallBBox = new THREE.Box3();
-bwallBBox.setFromObject(backWall);
-
-leftWall.geometry.computeBoundingBox();
-const lwallBBox = new THREE.Box3();
-lwallBBox.setFromObject(leftWall);
-
-rightWall.geometry.computeBoundingBox();
-const rwallBBox = new THREE.Box3();
-rwallBBox.setFromObject(rightWall);
 
 
 // Check if the user intersects the wall
@@ -137,10 +77,10 @@ function checkCollision() {
 	playerBoundingBox.setFromCenterAndSize(cameraWorldPositon, new THREE.Vector3(1, 1, 1));/// a method to take the center and size of a box, set the player's bounding box size and center it on the camera's world position
 
 	// loop through each wall
-	if (playerBoundingBox.intersectsBox(fwallBBox) ||
-		playerBoundingBox.intersectsBox(bwallBBox) ||
-		playerBoundingBox.intersectsBox(lwallBBox) ||
-		playerBoundingBox.intersectsBox(rwallBBox)
+	if (playerBoundingBox.intersectsBox(wallBoundingBox[0]) ||
+		playerBoundingBox.intersectsBox(wallBoundingBox[1]) ||
+		playerBoundingBox.intersectsBox(wallBoundingBox[2]) ||
+		playerBoundingBox.intersectsBox(wallBoundingBox[3])
 	) {
 		return true
 	} else {
@@ -303,7 +243,17 @@ let render = function() {
 	const delta = clock.getDelta(); // get the time between frames
 	updateMovement(delta); // update the movement with the time between frames
 
-
+	// const distanceThreHold = 8;  // Set a distance threshold
+	// let paintingToShow;
+	// const distanceToPainting = camera.position.distanceTo(painting1.position);
+	// if (distanceToPainting < distanceThreHold) {
+	// 	paintingToShow = paiting1;  // Set paintingToShow to this painting
+	// };
+	// if (paintingToShow) {
+	// 	displayInfo(paintingToShow.userData.info); //display the painting info
+	// } else {
+	// 	hideInfo();
+	// };
 
 	cube.rotation.x += 0.01;  // move render move render
 	cube.rotation.y += 0.01;
