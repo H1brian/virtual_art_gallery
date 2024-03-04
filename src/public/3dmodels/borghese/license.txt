@@ -1,0 +1,8 @@
+Model Information:
+* title:	Aphrodite, called "Hera Borghese"
+* source:	https://sketchfab.com/3d-models/aphrodite-called-hera-borghese-73f0a4fd99c6470d8214db1f59cc1f60
+* author:	Geoffrey Marchal (https://sketchfab.com/geoffreymarchal)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

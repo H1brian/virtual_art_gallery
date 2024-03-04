@@ -2,6 +2,11 @@ import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+// import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js'
+
+import { loadStatueModel } from "./components/statue";
+
+
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -23,6 +28,8 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xfffff, 1);  // Background color
 document.body.appendChild(renderer.domElement); // add renderer to HTML
 
+loadStatueModel(scene); // Add external statue
+
 // Lights
 const ambientLight = new THREE.AmbientLight(0x101010, 1);  // color, intensity
 ambientLight.position.x = camera.position.x; // Light follows camera
@@ -38,7 +45,7 @@ scene.add(sunLight);
 const geometry = new THREE.BoxGeometry(1, 1, 1); // the shape of the object, parameters are the size of the box
 const material = new THREE.MeshBasicMaterial({color: 'blue'}); // color
 const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// scene.add(cube);
 
 // Texture of the floor
 // let floorTexture = new THREE.ImageUtils.loadTexture('img/floor.jpg') // for new version of threejs
@@ -154,7 +161,6 @@ ceilingPlane.position.y = 10;
 scene.add(ceilingPlane);
 
 // Create paintings
-
 function createPainting(imageURL, width, height, position) {  // A fucntion to load a image texture and create a painting mesh
 	const paintingTexture = textureLoader.load(imageURL);   // Load image texture
 	const paintingGeometry = new THREE.PlaneGeometry(width, height); // Create geometry
@@ -283,4 +289,3 @@ let render = function() {
 };
 
 render(); // call the render
-
