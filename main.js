@@ -6,8 +6,6 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { loadStatueModel } from "./components/statue";
 
-
-
 // Scene
 const scene = new THREE.Scene(); // create the scene
 const textureLoader = new THREE.TextureLoader(); // create image loader
@@ -50,6 +48,9 @@ const cube = new THREE.Mesh(geometry, material);
 // Texture of the floor
 // let floorTexture = new THREE.ImageUtils.loadTexture('img/floor.jpg') // for new version of threejs
 const floorTexture = textureLoader.load('src/public/img/floor.jpg');
+floorTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
+floorTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
+floorTexture.repeat.set(1, 1);  // How many time the texture should be repeated
 
 // Create the floor plane
 const planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object // Alternative PlaneBufferGeometry
@@ -150,6 +151,10 @@ function checkCollision() {
 
 // Create the ceiling texture
 const ceilingTexture = textureLoader.load('src/public/img/ceiling.jpg');
+ceilingTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
+ceilingTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
+ceilingTexture.repeat.set(1, 1);  // How many time the texture should be repeated
+
 // Create the ceiling
 const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the objects
 const ceilingMaterial = new THREE.MeshBasicMaterial({
@@ -191,8 +196,22 @@ const painting2 = createPainting(
 	5, 
 	new THREE.Vector3(10, 3, -19.99)
 );
+const painting3 = createPainting(
+	"./src/public/paintings/zhangdaqian2.jpg", 
+	10, 
+	5, 
+	new THREE.Vector3(-19.99, 3, -15)
+);
+painting3.rotation.y = Math.PI /2;
+const painting4 = createPainting(
+	"./src/public/paintings/zhangdaqian2.jpg", 
+	10, 
+	5, 
+	new THREE.Vector3(19.99, 3, -15)
+);
+painting4.rotation.y = -Math.PI /2;
 
-scene.add(painting1, painting2);
+scene.add(painting1, painting2, painting3, painting4);
 
 // Controls
 const controls = new PointerLockControls(camera, document.body);
@@ -283,6 +302,9 @@ function updateMovement(delta) {
 let render = function() {
 	const delta = clock.getDelta(); // get the time between frames
 	updateMovement(delta); // update the movement with the time between frames
+
+
+
 	cube.rotation.x += 0.01;  // move render move render
 	cube.rotation.y += 0.01;
 
