@@ -36,7 +36,7 @@ const material = new THREE.MeshBasicMaterial({color: 'blue'}); // color
 const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
-loadStatueModel(scene); // Add external statue
+// loadStatueModel(scene); // Add external statue
 
 const walls = createWalls(scene, textureLoader);  // Return wallGroup
 const wallBoundingBox = createBoundingBox(walls);

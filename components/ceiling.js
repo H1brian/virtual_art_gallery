@@ -2,10 +2,10 @@ import * as THREE from 'three';
 
 export const createCeiling = (scene, textureLoader) => {
 // Create the ceiling texture
-const ceilingTexture = textureLoader.load('src/public/img/ceiling.jpg');
+const ceilingTexture = textureLoader.load('src/public/img/ceiling2.jpg');
 ceilingTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
 ceilingTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
-ceilingTexture.repeat.set(1, 1);  // How many time the texture should be repeated
+ceilingTexture.repeat.set(3, 3);  // How many time the texture should be repeated
 
 // Create the ceiling
 const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the objects

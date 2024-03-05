@@ -14,8 +14,8 @@ wallTexture.repeat.set(1, 1);  // How many time the texture should be repeated
 const frontWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		// color: "red",
-		map: wallTexture
+		color: '#325271'
+		// map: wallTexture
 	})
 );
 frontWall.position.z = -20;  // push the frontwall to the rear position
@@ -24,8 +24,8 @@ frontWall.position.z = -20;  // push the frontwall to the rear position
 const backWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		// color: "red",
-		map: wallTexture
+		color: '#325271'
+		// map: wallTexture
 	})
 );
 backWall.position.z = 20;  // push the frontwall to the rear position
@@ -33,7 +33,9 @@ backWall.position.z = 20;  // push the frontwall to the rear position
 // Left wall
 const leftWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({map: wallTexture})
+	new THREE.MeshBasicMaterial({color: '#325271'
+	// map: wallTexture
+	})
 );
 leftWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
 leftWall.position.x = -20;   // move the leftwall to the left
@@ -41,7 +43,9 @@ leftWall.position.x = -20;   // move the leftwall to the left
 // Right wall
 const rightWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
-	new THREE.MeshBasicMaterial({map: wallTexture})
+	new THREE.MeshBasicMaterial({color: '#325271'
+	// map: wallTexture
+	})
 );
 rightWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
 rightWall.position.x = 20;   // move the leftwall to the left
