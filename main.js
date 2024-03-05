@@ -6,6 +6,9 @@ import { loadStatueModel } from "./components/statue";
 // import { displayInfo, hideInfo } from './components/paintingInfo';
 import { createWalls } from './components/walls';
 import { createBoundingBox } from './components/boundingboxes';
+import { createFloors } from './components/floor';
+import { createCeiling } from './components/ceiling';
+import { createPaintings } from './components/paintings';
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -27,45 +30,19 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0xfffff, 1);  // Background color
 document.body.appendChild(renderer.domElement); // add renderer to HTML
 
-loadStatueModel(scene); // Add external statue
-const walls = createWalls(scene, textureLoader);  // Return wallGroup
-const wallBoundingBox = createBoundingBox(walls);
-
-// Lights
-const ambientLight = new THREE.AmbientLight(0x101010, 1);  // color, intensity
-ambientLight.position.x = camera.position.x; // Light follows camera
-ambientLight.position.y = camera.position.y; // Light follows camera
-scene.add(ambientLight);
-
-// Directional Light
-const sunLight = new THREE.DirectionalLight(0xddddd, 1); // color intensity
-sunLight.position.y = 15;
-scene.add(sunLight);
-
 // Creating a cube, name is mesh, a combination of geometry (shape) and material(how it looks)
 const geometry = new THREE.BoxGeometry(1, 1, 1); // the shape of the object, parameters are the size of the box
 const material = new THREE.MeshBasicMaterial({color: 'blue'}); // color
 const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
-// Texture of the floor
-// let floorTexture = new THREE.ImageUtils.loadTexture('img/floor.jpg') // for new version of threejs
-const floorTexture = textureLoader.load('src/public/img/floor.jpg');
-floorTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
-floorTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
-floorTexture.repeat.set(1, 1);  // How many time the texture should be repeated
+loadStatueModel(scene); // Add external statue
 
-// Create the floor plane
-const planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object // Alternative PlaneBufferGeometry
-const planeMaterial =  new THREE.MeshBasicMaterial({
-	map: floorTexture,
-	side: THREE.DoubleSide,
-});
-const floorPlane = new THREE.Mesh(planeGeometry, planeMaterial);
-floorPlane.rotation.x = Math.PI /2  // rotate 90 degree
-floorPlane.position.y = -Math.PI  // move the plane below
-
-scene.add(floorPlane);
+const walls = createWalls(scene, textureLoader);  // Return wallGroup
+const wallBoundingBox = createBoundingBox(walls);
+const floors = createFloors(scene, textureLoader);
+const ceiling = createCeiling(scene, textureLoader);
+createPaintings(scene, textureLoader);
 
 
 
@@ -88,70 +65,6 @@ function checkCollision() {
 	}
 	
 };
-
-// Create the ceiling texture
-const ceilingTexture = textureLoader.load('src/public/img/ceiling.jpg');
-ceilingTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
-ceilingTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
-ceilingTexture.repeat.set(1, 1);  // How many time the texture should be repeated
-
-// Create the ceiling
-const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the objects
-const ceilingMaterial = new THREE.MeshBasicMaterial({
-	// color: "yellow",
-	map: ceilingTexture,
-	side: THREE.DoubleSide
-});
-
-const ceilingPlane = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
-ceilingPlane.rotation.x = Math.PI / 2;  // rotate the ceiling 90 degree
-ceilingPlane.position.y = 10;
-scene.add(ceilingPlane);
-
-// Create paintings
-function createPainting(imageURL, width, height, position) {  // A fucntion to load a image texture and create a painting mesh
-	const paintingTexture = textureLoader.load(imageURL);   // Load image texture
-	const paintingGeometry = new THREE.PlaneGeometry(width, height); // Create geometry
-	const paintingMaterial = new THREE.MeshBasicMaterial({   //Create material
-		// color: "red",
-		map: paintingTexture,
-	});
-	const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
-	painting.position.set(position.x, position.y, position.z);
-	// painting.position.z = -15;
-	// painting.rotation.y = Math.PI /2;
-	// painting.position.x = -19;
-	return painting;
-};
-
-const painting1 = createPainting(
-	"./src/public/paintings/zhangdaqian1.jpg", 
-	10, 
-	5, 
-	new THREE.Vector3(-10, 3, -19.99)
-);
-const painting2 = createPainting(
-	"./src/public/paintings/zhangdaqian2.jpg", 
-	10, 
-	5, 
-	new THREE.Vector3(10, 3, -19.99)
-);
-const painting3 = createPainting(
-	"./src/public/paintings/zhangdaqian2.jpg", 
-	10, 
-	5, 
-	new THREE.Vector3(-19.99, 3, -15)
-);
-painting3.rotation.y = Math.PI /2;
-const painting4 = createPainting(
-	"./src/public/paintings/zhangdaqian2.jpg", 
-	10, 
-	5, 
-	new THREE.Vector3(19.99, 3, -15)
-);
-painting4.rotation.y = -Math.PI /2;
-
-scene.add(painting1, painting2, painting3, painting4);
 
 // Controls
 const controls = new PointerLockControls(camera, document.body);

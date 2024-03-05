@@ -47,7 +47,6 @@ rightWall.rotation.y = Math.PI / 2;  // rotate the leftwall 90 degree
 rightWall.position.x = 20;   // move the leftwall to the left
 
 wallGroup.add(frontWall, backWall, leftWall, rightWall);  // add walls to the wallGroup
-console.log(frontWall);
 
 return wallGroup;
 };
