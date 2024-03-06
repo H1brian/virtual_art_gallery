@@ -69,4 +69,3 @@ const painting8 = new PaintingData(
 
 
 paintingData.push(painting1, painting2, painting3, painting4, painting5, painting6, painting7, painting8);
-console.log(paintingData);

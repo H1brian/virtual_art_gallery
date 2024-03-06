@@ -43,8 +43,6 @@ const floors = createFloors(scene, textureLoader);
 const ceiling = createCeiling(scene, textureLoader);
 createPaintings(scene, textureLoader);
 
-
-
 // Check if the user intersects the wall
 function checkCollision() {
 	const playerBoundingBox = new THREE.Box3(); // Create a bounding box
@@ -53,16 +51,14 @@ function checkCollision() {
 	playerBoundingBox.setFromCenterAndSize(cameraWorldPositon, new THREE.Vector3(1, 1, 1));/// a method to take the center and size of a box, set the player's bounding box size and center it on the camera's world position
 
 	// loop through each wall
-	if (playerBoundingBox.intersectsBox(wallBoundingBox[0]) ||
-		playerBoundingBox.intersectsBox(wallBoundingBox[1]) ||
-		playerBoundingBox.intersectsBox(wallBoundingBox[2]) ||
-		playerBoundingBox.intersectsBox(wallBoundingBox[3])
-	) {
-		return true
-	} else {
-		return false
+	for (let index = 0; index < wallBoundingBox.length; index++) {
+		const element = wallBoundingBox[index];
+		if (playerBoundingBox.intersectsBox(element)){
+			return true
+		}
 	}
-	
+	return false;
+		
 };
 
 // Controls
