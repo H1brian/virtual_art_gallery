@@ -8,7 +8,7 @@ scene.add(wallGroup);
 const wallTexture = textureLoader.load('src/public/img/wall.jpg');
 wallTexture.wrapS = THREE.RepeatWrapping;  //wrapS means repeating along horizontal direction
 wallTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along vertical direction
-wallTexture.repeat.set(1, 1);  // How many time the texture should be repeated
+wallTexture.repeat.set(2, 2);  // How many time the texture should be repeated
 
 // Front wall
 const frontWall = new THREE.Mesh(

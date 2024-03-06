@@ -1,9 +1,7 @@
 import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
 import { loadStatueModel } from "./components/statue";
-// import { displayInfo, hideInfo } from './components/paintingInfo';
 import { createWalls } from './components/walls';
 import { createBoundingBox } from './components/boundingboxes';
 import { createFloors } from './components/floor';
@@ -23,6 +21,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 scene.add(camera); // Currently the camera is next to the window
 camera.position.z = 5; // Move the camera back 5 units
+camera.position.y = 2; // Move the camera up 2 units
 
 // Renderer (WebGL)
 const renderer = new THREE.WebGLRenderer({antialias: true}); // For smooth edges
