@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 
-function PaintingData (imgSrc, width, height, position, rotationY) {
+function PaintingData (imgSrc, width, height, position, rotationY, info) {
     this.imgSrc = imgSrc;
     this.width = width;
     this.height =height;
     this.position = new THREE.Vector3(position.x, position.y, position.z);
-    this.rotation = rotationY
+    this.rotation = rotationY;
+
 };
 export const paintingData = [];
 

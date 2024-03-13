@@ -7,6 +7,8 @@ import { createBoundingBox } from './components/boundingboxes';
 import { createFloors } from './components/floor';
 import { createCeiling } from './components/ceiling';
 import { createPaintings } from './components/paintings';
+import { displayInfo, hideInfo } from './components/paintingInfo';
+
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -30,18 +32,18 @@ renderer.setClearColor(0xfffff, 1);  // Background color
 document.body.appendChild(renderer.domElement); // add renderer to HTML
 
 // Creating a cube, name is mesh, a combination of geometry (shape) and material(how it looks)
-const geometry = new THREE.BoxGeometry(1, 1, 1); // the shape of the object, parameters are the size of the box
-const material = new THREE.MeshBasicMaterial({color: 'blue'}); // color
-const cube = new THREE.Mesh(geometry, material);
+// const geometry = new THREE.BoxGeometry(1, 1, 1); // the shape of the object, parameters are the size of the box
+// const material = new THREE.MeshBasicMaterial({color: 'blue'}); // color
+// const cube = new THREE.Mesh(geometry, material);
 // scene.add(cube);
 
 // loadStatueModel(scene); // Add external statue
 
 const walls = createWalls(scene, textureLoader);  // Return wallGroup
 const wallBoundingBox = createBoundingBox(walls);
-const floors = createFloors(scene, textureLoader);
-const ceiling = createCeiling(scene, textureLoader);
-createPaintings(scene, textureLoader);
+createFloors(scene, textureLoader);
+createCeiling(scene, textureLoader);
+const paintings = createPaintings(scene, textureLoader); // Array of all paintings
 
 // Check if the user intersects the wall
 function checkCollision() {
@@ -52,8 +54,7 @@ function checkCollision() {
 
 	// loop through each wall
 	for (let index = 0; index < wallBoundingBox.length; index++) {
-		const element = wallBoundingBox[index];
-		if (playerBoundingBox.intersectsBox(element)){
+		if (playerBoundingBox.intersectsBox(wallBoundingBox[index])){
 			return true
 		}
 	}
@@ -147,24 +148,28 @@ function updateMovement(delta) {
 };
 
 // Animation   request amimation frame
-let render = function() {
+const render = function() {
 	const delta = clock.getDelta(); // get the time between frames
 	updateMovement(delta); // update the movement with the time between frames
 
-	// const distanceThreHold = 8;  // Set a distance threshold
-	// let paintingToShow;
-	// const distanceToPainting = camera.position.distanceTo(painting1.position);
-	// if (distanceToPainting < distanceThreHold) {
-	// 	paintingToShow = paiting1;  // Set paintingToShow to this painting
-	// };
-	// if (paintingToShow) {
-	// 	displayInfo(paintingToShow.userData.info); //display the painting info
-	// } else {
-	// 	hideInfo();
-	// };
+	const distanceThreHold = 8;  // Set a distance threshold
+	let paintingToShow;
+	paintings.forEach((painting) => {
+	let distanceToPainting = camera.position.distanceTo(painting.position);
+	if (distanceToPainting < distanceThreHold) {
+		paintingToShow = painting;  // Set paintingToShow to this painting
+	}
+	});
 
-	cube.rotation.x += 0.01;  // move render move render
-	cube.rotation.y += 0.01;
+	if (paintingToShow) {
+		displayInfo(paintingToShow); //display the painting info
+	} else {
+		hideInfo();
+	};
+	
+
+	// cube.rotation.x += 0.01;  // move render move render
+	// cube.rotation.y += 0.01;
 
 	// Render, is like a screenshot, we need the camera and the scene to take the screenshot
 	renderer.render(scene, camera); //render the scene 
