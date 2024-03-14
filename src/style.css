@@ -19,8 +19,8 @@ body {
 
 #painting_info {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 80%;
+    left: 30%;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 10px;
@@ -29,15 +29,10 @@ body {
     width: 300px;
     height: 150px;
     z-index: 1;
-    transition: all 0.3s ease-in-out;
-    transform: translateY(100px);
     opacity: 0;
-    margin-top: 200px;
   }
 
 #painting_info.show {
-    /* transform: translateY(200px); */
     transform: translateX(50%);
-
     opacity: 1;
 }

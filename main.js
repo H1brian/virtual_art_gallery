@@ -162,7 +162,7 @@ const render = function() {
 	});
 
 	if (paintingToShow) {
-		displayInfo(paintingToShow); //display the painting info
+		displayInfo(paintingToShow.userData.info); //display the painting info
 	} else {
 		hideInfo();
 	};

@@ -12,6 +12,12 @@ export const createPaintings = (scene, textureLoader) => {  // A fucntion to loa
         const painting = new THREE.Mesh(paintingGeometry, paintingMaterial);
         painting.position.set(data.position.x, data.position.y, data.position.z);
         painting.rotation.y = data.rotation;
+        //Add 3D Object 
+        painting.userData = {
+            type: "painting",
+            info: data.info,
+        }
+
         scene.add(painting);
         paintings.push(painting);
     })
