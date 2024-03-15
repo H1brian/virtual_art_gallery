@@ -8,7 +8,7 @@ ceilingTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along ver
 ceilingTexture.repeat.set(3, 3);  // How many time the texture should be repeated
 
 // Create the ceiling
-const ceilingGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the objects
+const ceilingGeometry = new THREE.PlaneGeometry(50, 120); // BoxGeometry is the shape of the objects
 const ceilingMaterial = new THREE.MeshBasicMaterial({
 	// color: "yellow",
 	map: ceilingTexture,
