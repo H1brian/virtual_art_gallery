@@ -9,7 +9,7 @@ floorTexture.wrapT = THREE.RepeatWrapping;  // wrapT means repeating along verti
 floorTexture.repeat.set(1, 1);  // How many time the texture should be repeated
 
 // Create the floor plane
-const planeGeometry = new THREE.PlaneGeometry(50, 50); // BoxGeometry is the shape of the object // Alternative PlaneBufferGeometry
+const planeGeometry = new THREE.PlaneGeometry(50, 120); // BoxGeometry is the shape of the object // Alternative PlaneBufferGeometry
 const planeMaterial =  new THREE.MeshBasicMaterial({
 	map: floorTexture,
 	side: THREE.DoubleSide,
