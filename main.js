@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
-// import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { loadStatueModel } from "./components/statue";
 import { createWalls } from './components/walls';
 import { createBoundingBox } from './components/boundingboxes';

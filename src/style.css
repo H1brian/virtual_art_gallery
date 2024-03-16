@@ -10,7 +10,6 @@
     top: 10vh;
     left: 25vw;
     border-radius: 25px;
-    margin: 20px;
     opacity: 0.9;
 }
 .header {
@@ -20,11 +19,13 @@
 .hero {
     display: flex;
     gap: 10px;
-
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .introduction {
     display: block;
     justify-content: center;
+    margin-left: 30px;
 }
 
 #start_button {
@@ -36,8 +37,14 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
     font-size: 16px;
 }
+
+#start_button:hover {
+    background-color: rgba(52, 58, 125, 0.8);
+  }
+
 .footer {
     display: flex;
     justify-content: center;
@@ -45,26 +52,21 @@
 li {
     list-style-type: none;
 }
-#audio_controls {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    z-index: 2;
-  }
-  
-#audio_controls button {
+
+.audio_button {
     display: block;
     background-color: #43a883;
     color: white;
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
-#audio_controls button:hover {
+  .audio_button:hover {
     background-color: rgba(52, 58, 125, 0.8);
   }
 
