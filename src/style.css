@@ -1,13 +1,11 @@
 * {
     font-family: sans-serif;
-    color: black;
 }
 
 #menu {
     background-color: #9BB0C1;
     /* background-image: url(./public/img/orchid.jpg); */
     width: 50vw;
-    /* height: 70vh; */
     position: fixed;
     top: 10vh;
     left: 25vw;

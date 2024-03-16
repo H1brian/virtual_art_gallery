@@ -1,5 +1,23 @@
+//Painting information
+export const paintingInfo = (paintings, camera) => {
+    const distanceThreHold = 8;  // Set a distance threshold
+	let paintingToShow;
+	paintings.forEach((painting) => {
+	let distanceToPainting = camera.position.distanceTo(painting.position);
+	if (distanceToPainting < distanceThreHold) {
+		paintingToShow = painting;  // Set paintingToShow to this painting
+	}
+	});
+
+	if (paintingToShow) {
+		displayInfo(paintingToShow.userData.info); //display the painting info
+	} else {
+		hideInfo();
+	};
+};
+
 // Display painting infomation in the DOM
-export function displayInfo (info) {
+const displayInfo = (info) => {
     const infoElement = document.getElementById('painting_info');
     // set the html content inside info element
     infoElement.innerHTML = 
@@ -10,7 +28,7 @@ export function displayInfo (info) {
 };
 
 // Hide painting infomation in the DOM
-export const hideInfo = () => {
+const hideInfo = () => {
     const infoElement = document.getElementById('painting_info');
     infoElement.classList.remove('show');  // Remove the class
 };
