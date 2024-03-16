@@ -8,6 +8,7 @@ import { createFloors } from './components/floor';
 import { createCeiling } from './components/ceiling';
 import { createPaintings } from './components/paintings';
 import { displayInfo, hideInfo } from './components/paintingInfo';
+import { setupAudio, startAudio, stopAudio } from './components/audio';
 
 
 // Scene
@@ -43,6 +44,7 @@ const walls = createWalls(scene, textureLoader);  // Return wallGroup
 const wallBoundingBox = createBoundingBox(walls);
 createFloors(scene, textureLoader);
 createCeiling(scene, textureLoader);
+setupAudio(camera);
 const paintings = createPaintings(scene, textureLoader); // Array of all paintings
 
 // Check if the user intersects the wall
@@ -59,7 +61,6 @@ function checkCollision() {
 		}
 	}
 	return false;
-		
 };
 
 // Controls
@@ -90,6 +91,10 @@ function showMenu(){
 
 // Press "ESC" to exit and show the menu
 controls.addEventListener('unlock', showMenu);
+
+// Add event listeners for the audio guide buttons
+document.getElementById("start_audio").addEventListener("click", startAudio);
+document.getElementById("stop_audio").addEventListener("click", stopAudio);
 
 // Object to hold the key pressed
 const keysPressed = {
@@ -167,10 +172,6 @@ const render = function() {
 		hideInfo();
 	};
 	
-
-	// cube.rotation.x += 0.01;  // move render move render
-	// cube.rotation.y += 0.01;
-
 	// Render, is like a screenshot, we need the camera and the scene to take the screenshot
 	renderer.render(scene, camera); //render the scene 
 	requestAnimationFrame(render);  // Frame rate

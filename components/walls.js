@@ -14,7 +14,7 @@ wallTexture.repeat.set(2, 2);  // How many time the texture should be repeated
 const frontWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
@@ -24,7 +24,7 @@ frontWall.position.z = -60;  // push the frontwall to the rear position
 const backWall = new THREE.Mesh(
 	new THREE.BoxGeometry(50, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
@@ -33,7 +33,7 @@ backWall.position.z = 20;  // push the frontwall to the rear position
 // Left wall
 const leftWall1 = new THREE.Mesh(
 	new THREE.BoxGeometry(120, 20, 0.001),
-	new THREE.MeshBasicMaterial({color: '#325271'
+	new THREE.MeshBasicMaterial({color: '#51829B'
 	// map: wallTexture
 	})
 );
@@ -43,7 +43,7 @@ leftWall1.position.x = -20;   // move the leftwall to the left
 // Right wall
 const rightWall1 = new THREE.Mesh(
 	new THREE.BoxGeometry(120, 20, 0.001),
-	new THREE.MeshBasicMaterial({color: '#325271'
+	new THREE.MeshBasicMaterial({color: '#51829B'
 	// map: wallTexture
 	})
 );
@@ -54,7 +54,7 @@ rightWall1.position.x = 20;   //  move the rightwall to the right
 const middleWall1 = new THREE.Mesh(
 	new THREE.BoxGeometry(20, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
@@ -66,7 +66,7 @@ middleWall1.position.x = -15;
 const middleWall2 = new THREE.Mesh(
 	new THREE.BoxGeometry(20, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
@@ -76,7 +76,7 @@ middleWall2.position.x = 15;
 // Middle wall hallway left
 const middleWall3 = new THREE.Mesh(
 	new THREE.BoxGeometry(15, 20, 0.001),
-	new THREE.MeshBasicMaterial({color: '#325271'
+	new THREE.MeshBasicMaterial({color: '#51829B'
 	// map: wallTexture
 	})
 );
@@ -87,7 +87,7 @@ middleWall3.position.z = -27.5;
 // Middle wall hallway right
 const middleWall4 = new THREE.Mesh(
 	new THREE.BoxGeometry(15, 20, 0.001),
-	new THREE.MeshBasicMaterial({color: '#325271'
+	new THREE.MeshBasicMaterial({color: '#51829B'
 	// map: wallTexture
 	})
 );
@@ -99,7 +99,7 @@ middleWall4.position.z = -27.5;
 const middleWall5 = new THREE.Mesh(
 	new THREE.BoxGeometry(20, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
@@ -111,14 +111,17 @@ middleWall5.position.x = -15;
 const middleWall6 = new THREE.Mesh(
 	new THREE.BoxGeometry(20, 20, 0.001),
 	new THREE.MeshBasicMaterial({
-		color: '#325271'
+		color: '#51829B'
 		// map: wallTexture
 	})
 );
 middleWall6.position.z = -35;
 middleWall6.position.x = 15;
 
-wallGroup.add(frontWall, backWall, leftWall1, rightWall1, middleWall1, middleWall2, middleWall3, middleWall4, middleWall5, middleWall6);  // add walls to the wallGroup
+wallGroup.add(
+	frontWall, backWall, leftWall1, rightWall1, 
+	middleWall1, middleWall2, middleWall3, middleWall4, 
+	middleWall5, middleWall6);  // add walls to the wallGroup
 
 return wallGroup;
 };

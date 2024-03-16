@@ -1,9 +1,10 @@
 * {
     font-family: sans-serif;
+    color: black;
 }
 
 #menu {
-    background-color: rgb(177, 183, 195);
+    background-color: #9BB0C1;
     /* background-image: url(./public/img/orchid.jpg); */
     width: 50vw;
     /* height: 70vh; */
@@ -12,11 +13,11 @@
     left: 25vw;
     border-radius: 25px;
     margin: 20px;
+    opacity: 0.9;
 }
 .header {
     padding: 10px;
     text-align: center;
-
 }
 .hero {
     display: flex;
@@ -29,7 +30,7 @@
 }
 
 #start_button {
-    background-color: #43a883; /* Green */
+    background-color: #43a883;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -46,6 +47,29 @@
 li {
     list-style-type: none;
 }
+#audio_controls {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+  }
+  
+#audio_controls button {
+    display: block;
+    background-color: #43a883;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+#audio_controls button:hover {
+    background-color: rgba(52, 58, 125, 0.8);
+  }
+
 #painting_info {
     position: fixed;
     top: 80%;
