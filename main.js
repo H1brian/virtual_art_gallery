@@ -11,6 +11,7 @@ import { paintingInfo } from './components/paintingInfo';
 import { setupAudio } from './components/audio';
 import { updateMovement } from './components/movement';
 import { eventHandling } from './components/events';
+import { setupVR } from './components/VR';
 
 // Scene
 const scene = new THREE.Scene(); // create the scene
@@ -45,6 +46,7 @@ createFloors(scene, textureLoader);  //
 createCeiling(scene, textureLoader);
 setupAudio(camera);  
 eventHandling(controls);
+setupVR(renderer, scene, camera);
 
 // Add the movement to the scene, press the arrow keys or wsad to move
 const clock = new THREE.Clock();  // Create a clock to keep track of the time between frames
