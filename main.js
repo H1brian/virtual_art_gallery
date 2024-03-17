@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 import { loadStatueModel } from "./components/statue";
 import { createWalls } from './components/walls';
+import { createLight } from './components/light';
 import { createBoundingBox } from './components/boundingboxes';
 import { createFloors } from './components/floor';
 import { createCeiling } from './components/ceiling';
@@ -41,8 +42,9 @@ const controls = new PointerLockControls(camera, document.body);
 const walls = createWalls(scene, textureLoader);  // Return wallGroup
 const wallBoundingBox = createBoundingBox(walls);  // Return an array of wall bounding box 
 const paintings = createPaintings(scene, textureLoader); // Return an array of paintings
-createFloors(scene, textureLoader);  //
+createFloors(scene, textureLoader);
 createCeiling(scene, textureLoader);
+createLight(scene, camera);
 setupAudio(camera);  
 eventHandling(controls);
 setupVR(renderer, scene, camera);

@@ -13,11 +13,5 @@ export const setupVR = (renderer, scene, camera) => {
     console.log("WebXR session ended");
   });
 
-  renderer.setAnimationLoop( function () {
-
-    renderer.render( scene, camera );
-  
-  } );
-
   document.body.appendChild(VRButton.createButton(renderer));
 };
