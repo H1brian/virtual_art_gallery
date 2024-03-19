@@ -1,6 +1,7 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
 import { keysPressed } from './movement';
 import { startAudio, stopAudio } from './audio';
-import { hideMenu } from '../../3D-art-gallery/modules/menu';
 
 export const eventHandling = (controls) => {
 // Lock the pointer (controls are activated)

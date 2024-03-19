@@ -1,8 +1,11 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
 import * as THREE from 'three';
 
 let sound;
 let bufferLoaded = false;
 
+// Setup the audio
 export const setupAudio = (camera) => {
     const listener = new THREE.AudioListener();
     camera.add(listener);

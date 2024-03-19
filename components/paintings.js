@@ -1,3 +1,6 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
+
 // Create paintings
 import * as THREE from 'three';
 import { paintingData } from './paintingData';

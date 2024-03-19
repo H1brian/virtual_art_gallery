@@ -1,3 +1,5 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
 import * as THREE from 'three';
 
 export const createBoundingBox = (objects) => {

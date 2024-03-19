@@ -1,3 +1,5 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
 import * as THREE from 'three';
 import { PointerLockControls, ThreeMFLoader } from 'three-stdlib';
 import { loadStatueModel } from "./components/statue";
@@ -47,7 +49,7 @@ createCeiling(scene, textureLoader);
 createLight(scene, camera);
 setupAudio(camera);  
 eventHandling(controls);
-setupVR(renderer, scene, camera);
+setupVR(renderer);
 
 // Add the movement to the scene, press the arrow keys or wsad to move
 const clock = new THREE.Clock();  // Create a clock to keep track of the time between frames

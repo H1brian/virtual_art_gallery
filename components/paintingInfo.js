@@ -1,3 +1,6 @@
+// Group 6, Liang Geng and Qixuan Li
+// Contributor: Liang Geng
+
 //Painting information
 export const paintingInfo = (paintings, camera) => {
     const distanceThreHold = 8;  // Set a distance threshold
