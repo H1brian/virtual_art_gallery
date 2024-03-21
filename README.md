@@ -5,8 +5,8 @@ I created a virtual art gallery using three.js, and it's also a multimedia proje
 https://www.youtube.com/watch?v=vFkCIbj0Nl0)
 ## Installation
 ### Environment setup
-You need node.js to set up a runtime environment.
-You need VSCode as your IDE.
+You need <strong>node.js</strong> to set up a runtime environment.<br>
+You need <strong>VSCode</strong> as your IDE.
 ### Clone or download the zip file of the repository
 ```bash
 git clone https://github.com/H1brian/virtual_art_gallery.git
