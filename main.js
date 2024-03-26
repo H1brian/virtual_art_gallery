@@ -49,7 +49,7 @@ createCeiling(scene, textureLoader);
 createLight(scene, camera);
 setupAudio(camera);  
 eventHandling(controls);
-setupVR(renderer);
+setupVR(renderer, scene, camera);
 
 // Add the movement to the scene, press the arrow keys or wsad to move
 const clock = new THREE.Clock();  // Create a clock to keep track of the time between frames
