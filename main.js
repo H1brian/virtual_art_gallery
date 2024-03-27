@@ -39,7 +39,7 @@ document.body.appendChild(renderer.domElement); // add renderer to HTML
 // Controls
 const controls = new PointerLockControls(camera, document.body);
 
-// loadStatueModel(scene); // Add external statue
+// loadStatueModel(scene); // Add external statue, uncomment this line of code to show the statue
 
 const walls = createWalls(scene, textureLoader);  // Return wallGroup
 const wallBoundingBox = createBoundingBox(walls);  // Return an array of wall bounding box 
